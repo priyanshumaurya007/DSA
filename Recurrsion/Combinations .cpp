@@ -6,6 +6,8 @@ public:
     
     void rec( vector<int> v, int i, int k, int n)
     {
+        // base case 
+        
         if(v.size()==k)
         {
             vi.push_back(v);
@@ -15,8 +17,12 @@ public:
         
         for(int j = i;j<=n ; j++)
         {
+            // Recursion call
+            
             v.push_back(j);
             rec(v, j+1, k, n);
+            
+            // backtracking step
             v.pop_back();
         }
     }
