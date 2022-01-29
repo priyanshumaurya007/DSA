@@ -1,68 +1,51 @@
-class Node
-{
-    public :
-                int val;
-                int min;
-                Node *next;
-    
-                Node( int val, int min, Node *next)
-                {
-                    this->val = val;
-                    this->min = min;
-                    this->next = next;
-                }
-};
-
-class MinStack {
+class Solution {
 public:
     
-    Node *head;
+    // comparator to sort the values according to first value ( optional )
     
-    MinStack() 
+    static bool comparator( vector<int> &a, vector<int> &b)
     {
-        head = NULL;
-        
-    }
-    
-    void push(int val) 
-    {
-        if(!head)
-        {
-            head = new Node( val ,val , NULL);
-        }
+        if( a[0] < b[0] )
+            return true;
+        else if ( a[0] == b[0] )
+            return a[1] < b[1];
         else
+            return false;
+    }
+    
+    vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        int n = intervals.size();
+        
+        sort( intervals.begin() , intervals.end() , comparator);
+        
+        // 2D vector for result
+        
+        vector<vector<int>> ans;
+        
+        // insert first range in temp
+        
+        vector<int> temp = intervals[0];
+        
+        for( auto itr : intervals)
         {
-            head = new Node( val , min(head->min , val), head);
+            // if overlap happens this update the second value of last 
+            
+            if(temp[1] >= itr[0])
+                temp[1] = max( temp[1] , itr[1]);
+            
+            // otherwise, push the result in ans , update temp with next range
+            
+            else
+            {
+                ans.push_back(temp);
+                temp = itr;
+            }
         }
         
-    }
-    
-    void pop() 
-    {
-        Node *temp = head;
-        head = head->next;
-        delete temp;
         
-    }
-    
-    int top() 
-    {
-        return head->val;
+        ans.push_back(temp);
         
-    }
-    
-    int getMin() 
-    {
-        return head->min;
-        
+        return ans;
     }
 };
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack* obj = new MinStack();
- * obj->push(val);
- * obj->pop();
- * int param_3 = obj->top();
- * int param_4 = obj->getMin();
- */
