@@ -13,7 +13,7 @@ public:
         if(root->val < p->val && root->val < q->val)
             return lowestCommonAncestor(root->right, p , q);
         
-        // if above cases doesnot satisfy it means the nodes are going to split after this                 particular node so this is our answer, hence we return it
+        // if above cases doesnot satisfy it means the nodes are going to split after this particular node so this is our answer, hence we return it
         return root;
         
     }
