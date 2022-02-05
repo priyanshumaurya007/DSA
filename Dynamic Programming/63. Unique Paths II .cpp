@@ -46,7 +46,7 @@ public:
         // calling
         int ans = rec(m-1, n-1, grid);
         
-        // return the result
+        // return result
         return ans;
     }
 };
