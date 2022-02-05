@@ -1,6 +1,7 @@
 class Solution {
 public:
     
+    // call function
     vector<vector<int>> generate(int numRows) 
     {
         // to store the result
