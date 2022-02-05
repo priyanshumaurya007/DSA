@@ -32,7 +32,7 @@ public:
         for(int i=0;i<47;i++)
             dp[i]=-1;
         
-        // return the result
+        // return result
         return climb(n);
         
         
