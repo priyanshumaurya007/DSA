@@ -35,7 +35,7 @@ public:
         // call the function
         int ans = rec(m-1 , n-1);
         
-        // return the result
+        // return result
         return ans;
     }
 };
