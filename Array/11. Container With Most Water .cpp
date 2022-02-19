@@ -19,7 +19,7 @@ public:
             
             maxarea = max(maxarea, distance * minheight);
             
-            // increase decrease the pointer which have short height to trap maximum water
+            // increase decrease the pointer which have short height to trap the maximum water
             if(height[i] < height[j])
             {
                 i++;
