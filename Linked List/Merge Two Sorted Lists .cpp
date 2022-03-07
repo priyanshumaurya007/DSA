@@ -1,52 +1,52 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
     {
-        if(list1 == NULL)
-            return list2;
-        if(list2 == NULL)
-            return list1;
+        // to track the head
+        ListNode *dummy = new ListNode(-1);
         
-        ListNode *head = NULL ;
-        ListNode *curr = NULL;
+        // prev pointer will join all the list
+        ListNode *prev = dummy;
+        ListNode *l1 = list1, *l2 = list2;
         
-        if(list1->val <= list2->val)
+        // till both list exist
+        while(l1 && l2)
         {
-             head = list1;
-             curr = list1;
-             list1 = list1->next;
-        }
-        else
-        {
-             head = list2;
-             curr = list2;
-             list2 = list2->next;
-        }
-        
-        
-        
-        while( list1!=NULL && list2!=NULL)
-        {
-            if(list1->val <= list2->val)
+            // check which node is having less value
+            if(l1->val <= l2->val)
             {
-                curr->next = list1;
-                curr = list1;
-                list1 = list1->next;
-                
+                prev->next = l1;
+                l1 = l1->next;
+                prev = prev->next;
             }
             else
             {
-                curr->next = list2;
-                curr = list2;
-                list2 = list2->next;
+                prev->next = l2;
+                l2 = l2->next;
+                prev = prev->next;
             }
         }
         
-        if(list1==NULL)
-            curr->next = list2;
-        else
-            curr->next = list1;
+        // if only list 1 exist
+        if(l1)
+            prev->next = l1;
         
-        return head;
+        // if only list 2 exist
+        if(l2)
+            prev->next = l2;
+        
+        
+        // return the first node just after dummy; that will be our head
+        return dummy->next;
     }
 };
