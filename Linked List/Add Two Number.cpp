@@ -1,38 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
     {
-        ListNode *dummy = new ListNode(0);
-        
-        if(l1 == NULL)
+        // if any of the list is empty then return the other
+        if(!l1)
             return l2;
-        else if(l2 == NULL)
+        if(!l2)
             return l1;
-        else
+        
+        // to track the head of new list
+        ListNode *dummy = new ListNode(-1);
+        
+        // curr pointer will create the list
+        ListNode *curr = dummy;
+        
+        // carry and sum to calculate the node value
+        int carry = 0, sum = 0;
+        
+        // loop runs till any list contains the node
+        while(l1 || l2)
         {
-            ListNode *r = dummy;
-            int sum = 0, carry =0;
-            while( l1 != NULL || l2 != NULL )
-            {
-                sum = ( l1==NULL ? 0 : l1->val) + ( l2==NULL ? 0 : l2->val ) + carry ;
-                carry = sum/10;
-                sum = sum % 10;
-                r->next = new ListNode(sum);
-                r = r->next;
-                
-                if(l1 != NULL)
-                    l1 = l1->next;
-                if(l2 != NULL)
-                    l2 = l2->next;
-                
-            }
+            // calculate sum and carry
+            sum = (l1 == NULL ? 0 : l1->val) + (l2 == NULL ? 0 : l2->val) + carry;
+            carry = sum / 10;
+            sum = sum % 10;
             
-            if(carry > 0)
-                r->next = new ListNode(carry);
+            // make new node
+            curr->next = new ListNode(sum);
+            curr = curr->next;
+            
+            // if list exist, go to next node
+            if(l1)
+                l1 = l1->next;
+            if(l2)
+                l2 = l2->next;
                 
         }
         
-        return dummy->next;
+        // if carry exist for last value then make a node for it
+        if(carry>0)
+            curr->next = new ListNode(carry);
         
+        
+        return dummy->next;
     }
 };
